@@ -41,3 +41,6 @@ html网页字符串=====>网页解析器=======
 结构化解析
     DOM(Document Object Model)树
 
+BeautifulSoup构造函数(html_cont, 'html.parser', from_encoding = 'utf-8')
+BeautifulSoup用于解析urllib.request下载到的类的read返回的字符串。
+BeautifulSoup用到的方法有find_all,find,
