@@ -1,0 +1,43 @@
+
+                           爬虫
+
+
+爬虫调度端=======> URL管理器<============||
+                      ||                 ||
+                      ||                 ||
+                      ||                 ||
+                   网页下载器=======>网页解析器==========>价值数据
+
+
+
+URL管理器
+防止重复抓取和循环抓取
+待爬取集合以及已爬取集合
+1.内存=========>两个set
+2.关系数据库=======>MySQL
+3.缓存数据库=======>redis
+
+网页下载器
+将互联网上URL对应的网页下载到本地
+1.urllib2
+    a.response=  urllib2..urlopen(url)
+      print response.getcode #如果是200则表示成功
+      cont = response.getcode()#读取内容
+    b.添加data、url、header========>urllib2.Requset=======>urllib2.urlopen(request)
+    c.添加特殊情景的处理器
+2.requests
+
+网页解析器
+    从网页中提取有价值的数据
+
+                                     =========>价值数据
+html网页字符串=====>网页解析器=======
+                                     =========>新URL列表
+
+1.正则表达式<============模糊匹配
+2.html.parser<===========结构化解析
+3.BeautifulSoup<==========结构化解析
+4.Lxml<===================结构化解析
+结构化解析
+    DOM(Document Object Model)树
+
