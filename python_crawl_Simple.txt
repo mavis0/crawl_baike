@@ -20,7 +20,7 @@ URL管理器
 网页下载器
 将互联网上URL对应的网页下载到本地
 1.urllib2
-    a.response=  urllib2..urlopen(url)
+    a.response=  urllib2.urlopen(url)
       print response.getcode #如果是200则表示成功
       cont = response.getcode()#读取内容
     b.添加data、url、header========>urllib2.Requset=======>urllib2.urlopen(request)
@@ -44,3 +44,12 @@ html网页字符串=====>网页解析器=======
 BeautifulSoup构造函数(html_cont, 'html.parser', from_encoding = 'utf-8')
 BeautifulSoup用于解析urllib.request下载到的类的read返回的字符串。
 BeautifulSoup用到的方法有find_all,find,
+
+
+关于爬虫的一点体会：
+    首先，爬去静态网页是一件十分easy的事情，通过urllib、BeautifulSoup、re三个库可以很轻松的爬去静态网页，但自己仍然花了快一天的时间，很惭愧。其中在py3中，urllib的包括了request,error,parser,robotparse四个模块，如果目标网页没有防爬虫机制的话，直接urllib.request.urlopen(url)即可得到目标网页，是一个HTTPResponse类。如果担心没有长时间没有相应的话，可以在urlopen()里添加一个timeout选项，单位好像是秒。但是这样就一定要catch异常，except:Exception as e:print(str(e)),不确定异常的时候可以以这种方式来保证程序的运行。常用方法是read常用方法是read()，如果目标网页有防爬虫机制，那么得将url包装为一个request，在用urlopen打开。
+    然后是用BeautifulSoup提取网页信息，首先得知道目标网页的编码方式，在网页的<head>里有写，然后是构造一个BeautifulSoup类，常用方法是find和find_all，其中参数attr的意思是可以用{}将属性选定，如find('a',{"class":"item"}一个限定的话可以不用{}，find('a',href = re.complie('\d*')),这样可以和正则表达式配合起来。find得到的是一个tag类型的节点，因为BeautifulSoup是以结构化解析的，也就是把每一个标签形成一个节点，find_all得到的是tag的一个set集合，可以属性访问节点的数据，如img_url['src']。
+    最后，爬取静态网页是仅仅只是入门，还有更多验证码啊、cookie啊、多线程啊、分布式需要学习！
+
+
+
